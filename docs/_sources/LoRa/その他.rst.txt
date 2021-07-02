@@ -23,7 +23,8 @@
 .. figure:: ../img/map.jpg
    :scale: 40
    :align: Left
- 
+   :target: https://www.iot.kkyes.co.jp/worldmap/
+
 
 気象観測ステーション_
 *************************************
@@ -33,10 +34,11 @@
 .. figure:: ../img/weather.jpg
    :scale: 120
    :align: Right
-
+ 
 .. figure:: ../img/weatherchart.jpg
    :scale: 50
    :align: Left
+   :target: https://www.iot.kkyes.co.jp/weather
 
 
 .. _位置情報通知システム: https://www.iot.kkyes.co.jp/worldmap/
