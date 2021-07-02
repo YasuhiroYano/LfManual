@@ -1,0 +1,43 @@
+======================
+その他 「TeleWorker」
+======================
+
+.. figure:: ../img/teleworker.jpg
+   :scale: 80
+   :align: Right
+
+「LoRaFactory」以外にLTE CATM1のモジュールを搭載した「TeleWorker」と言うIot基板があります。
+携帯電話が使えるところであればどこからでもデータを送ることができます。
+但し、1か月300円程度の通信費が必要になります。
+
+コミュニティバスの 位置情報通知システム_
+*********************************************************
+
+現在　香川県観音寺市のコミュニティバスの位置情報通知システム で試用中です。　
+「TeleWorker」にGPSモジュールの乗ったシールドを組み合わせています。
+
+.. figure:: ../img/gps.jpg
+   :scale: 70
+   :align: Right
+
+.. figure:: ../img/map.jpg
+   :scale: 40
+   :align: Left
+ 
+
+気象観測ステーション_
+*************************************
+
+また、試験用に気象観測機材と組み合わせて実験中です。 
+
+.. figure:: ../img/weather.jpg
+   :scale: 120
+   :align: Right
+
+.. figure:: ../img/weatherchart.jpg
+   :scale: 50
+   :align: Left
+
+
+.. _位置情報通知システム: https://www.iot.kkyes.co.jp/worldmap/
+.. _気象観測ステーション: https://www.iot.kkyes.co.jp/weather

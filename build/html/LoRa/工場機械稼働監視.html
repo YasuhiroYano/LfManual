@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2.1. 工場機械稼働監視 &#8212; LoRaFactory 1.00 2021/06/30 ドキュメント</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="2.2. イノシシ罠" href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" />
+    <link rel="prev" title="2. 使用例" href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" title="2.2. イノシシ罠"
+             accesskey="N">次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" title="2. 使用例"
+             accesskey="P">前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" accesskey="U"><span class="section-number">2. </span>使用例</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.1. </span>工場機械稼働監視</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1><span class="section-number">2.1. </span>工場機械稼働監視<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../_images/New0002.jpg"><img alt="../_images/New0002.jpg" src="../_images/New0002.jpg" style="width: 411.0px; height: 432.0px;" /></a>
+</figure>
+<p>[LoRaFactory]の名前からも想像できるように、このIoT基板は工場内でのデータ収集を目的に開発しました。
+一般的に工場内では、多数の障害物と電磁ノイズがあり、無線によるデータ収集は簡単ではありません。
+しかし、無線でデータを収集できれば通信線の工事が不要になり、設置費用が大きく削減できます。
+PrivateLoRa通信は920MHz帯の電波を使用していてインバータなどの動力機器のノイズを比較的受けにくく、
+障害物の影響も少なく,広い工場内でのデータ収集に適しています。
+また、多数の機械から稼働情報を収集しようとする場合でも、通信費が必要ありません。</p>
+<p>右の例では機械装置自体を改造することなく、ﾊﾟﾄﾗｲﾄの点灯状態を光センサーで取り込むことで稼働状態、
+異常の有無などの情報を取得します。　　また、近接ｾﾝｻｰは例えば製品の排出側を監視して生産個数の計数に利用できます。
+そして、人感センサーは作業者が作業している時間の把握に利用できます。　ﾓｰﾀの電流を監視することもできます。
+[LoRaFactory]はArduinoUnoと同じ外形で、インターフェイスコネクタは互換があります。
+さらに、電源が7V～35Vと強化されていて一般的な機械制御盤で使用するDC24Vで動かすことができます。
+製品のカウントなどの目的に応じたプログラムは　<a class="reference external" href="https://thinkit.co.jp/story/2013/02/12/3960">Arduino</a> IDEで簡単に作ることができます。</p>
+<p>[LoRaFactory]からの情報はGateWayにLoRa通信で伝送されます。
+GateWayとして[LoRaFactory]が使用できます。 GateWayとして用意した[LoRaFactory]に、USBでパソコンを直接接続することができます。
+WiFi、やLANへのGateWayとする場合はそれらのモジュールが搭載されたシールドを重ねることによって実現できます。</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html"
+                          title="Previous page">&larr; <span class="section-number">2. </span>使用例</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html"
+                          title="Next page">&rarr; <span class="section-number">2.2. </span>イノシシ罠</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/LoRa/工場機械稼働監視.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" title="2.2. イノシシ罠"
+             >次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" title="2. 使用例"
+             >前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" ><span class="section-number">2. </span>使用例</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.1. </span>工場機械稼働監視</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, 矢野　泰弘.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

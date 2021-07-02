@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3. 使用方法 &#8212; LoRaFactory 1.00 2021/06/30 ドキュメント</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="4. その他" href="%E3%81%9D%E3%81%AE%E4%BB%96.html" />
+    <link rel="prev" title="2.3. 水道ﾒｰﾀ監視" href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="%E3%81%9D%E3%81%AE%E4%BB%96.html" title="4. その他"
+             accesskey="N">次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html" title="2.3. 水道ﾒｰﾀ監視"
+             accesskey="P">前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>使用方法</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1><span class="section-number">3. </span>使用方法<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<section id="id2">
+<h2><span class="section-number">3.1. </span>ハードウエア<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<section id="id3">
+<h3><span class="section-number">3.1.1. </span><strong>仕様</strong><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>電源</p></td>
+<td><p>7.5V~35V</p></td>
+<td><p><a class="reference external" href="mailto:MAX20mA&#37;&#52;&#48;12V">MAX20mA<span>&#64;</span>12V</a> 0.24W</p></td>
+</tr>
+<tr class="row-even"><td><p>(電池運用)</p></td>
+<td><p>2.7V~3.6V</p></td>
+<td><p>起動中2mA 送信時50mA ｽﾘｰﾌﾟ24μA</p></td>
+</tr>
+<tr class="row-odd"><td><p>外形</p></td>
+<td><p>53.5x70x11</p></td>
+<td><p>ArduinoUno相当</p></td>
+</tr>
+<tr class="row-even"><td><p>使用可能IO</p></td>
+<td><p>D0~D8</p></td>
+<td><p>D0,D1はUSBに接続、JP外して使用可</p></td>
+</tr>
+<tr class="row-odd"><td><p>使用可能ｱﾅﾛｸﾞ</p></td>
+<td><p>A0~A7</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>使用環境</p></td>
+<td><p>-10~70℃</p></td>
+<td><p>結露無き事</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><ul class="simple">
+<li><p>電池で運用するときは内部電源、及びUSB回路を切り離す必要があります。</p></li>
+<li><p>ES920LR はｿﾌﾄｼﾘｱﾙで接続され、通信速度は9600bpsに変更済みです。</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">3.2. </span>ソフトウエア<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">3. 使用方法</a><ul>
+<li><a class="reference internal" href="#id2">3.1. ハードウエア</a><ul>
+<li><a class="reference internal" href="#id3">3.1.1. <strong>仕様</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">3.2. ソフトウエア</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html"
+                          title="Previous page">&larr; <span class="section-number">2.3. </span>水道ﾒｰﾀ監視</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="%E3%81%9D%E3%81%AE%E4%BB%96.html"
+                          title="Next page">&rarr; <span class="section-number">4. </span>その他</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/LoRa/setup.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="%E3%81%9D%E3%81%AE%E4%BB%96.html" title="4. その他"
+             >次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html" title="2.3. 水道ﾒｰﾀ監視"
+             >前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>使用方法</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, 矢野　泰弘.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

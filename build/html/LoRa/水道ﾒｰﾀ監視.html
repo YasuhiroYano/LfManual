@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2.3. 水道ﾒｰﾀ監視 &#8212; LoRaFactory 1.00 2021/06/30 ドキュメント</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="3. 使用方法" href="setup.html" />
+    <link rel="prev" title="2.2. イノシシ罠" href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="setup.html" title="3. 使用方法"
+             accesskey="N">次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" title="2.2. イノシシ罠"
+             accesskey="P">前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" accesskey="U"><span class="section-number">2. </span>使用例</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.3. </span>水道ﾒｰﾀ監視</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1><span class="section-number">2.3. </span>水道ﾒｰﾀ監視<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>留守にしていた家の水道が、凍結で破損し、漏水で大変なことになったとの相談があって製作したものです。
+水道ﾒｰﾀに、回転表示しているパイロットがあります。　光電センサーで、回転状態を計測し、流水量を計測します。
+例えば60分以上流水が、継続すれば在宅であっても、洗濯とか風呂の湯張りではない異常が検知できます。
+また、一人暮らしの家で、1日全く水が使われなければ、異常があると判断できます。
+この装置は、そうした異常を検知したときに、Lineにメッセージを送ります。
+水量を常時監視するための電源が必要ですが、[LoRaFactory]は電源電圧範囲が広く、消費電流が小さいので小型の太陽電池と
+バッテリで、この装置を作ることができました。</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/WlBlock.jpg"><img alt="../_images/WlBlock.jpg" src="../_images/WlBlock.jpg" style="width: 838.8px; height: 370.8px;" /></a>
+</figure>
+<figure class="align-left">
+<a class="reference internal image-reference" href="../_images/Wmeter.jpg"><img alt="../_images/Wmeter.jpg" src="../_images/Wmeter.jpg" style="width: 127.8px; height: 144.0px;" /></a>
+</figure>
+<figure class="align-right">
+<a class="reference internal image-reference" href="../_images/waterleak.jpg"><img alt="../_images/waterleak.jpg" src="../_images/waterleak.jpg" style="width: 128.0px; height: 228.8px;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/Sensor.jpg"><img alt="../_images/Sensor.jpg" src="../_images/Sensor.jpg" style="width: 172.79999999999998px; height: 164.4px;" /></a>
+</figure>
+<ul class="simple">
+<li><p><strong>水量グラフ</strong></p></li>
+</ul>
+<blockquote>
+<div><p>4人家族の水道流量をAmbient <a class="footnote-reference brackets" href="#id3" id="id2">2</a> で、グラフ化したところ、活動状態が、ほぼ丸見えになりました。
+プライバシーの問題が、あるかもしれませんが、
+独り暮らしの老人の活動状態を、それとなく把握するのには、一つの有効な手段です。</p>
+</div></blockquote>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/Ambient.jpg"><img alt="../_images/Ambient.jpg" src="../_images/Ambient.jpg" style="width: 802.0px; height: 589.0px;" /></a>
+</figure>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://ambidata.io/">Ambient</a> はクラウドで簡単にデータをグラフ化してくれる無料のサイトです。</p>
+</dd>
+</dl>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html"
+                          title="Previous page">&larr; <span class="section-number">2.2. </span>イノシシ罠</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="setup.html"
+                          title="Next page">&rarr; <span class="section-number">3. </span>使用方法</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/LoRa/水道ﾒｰﾀ監視.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="setup.html" title="3. 使用方法"
+             >次へ</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="%E3%82%A4%E3%83%8E%E3%82%B7%E3%82%B7%E7%BD%A0.html" title="2.2. イノシシ罠"
+             >前へ</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="%E4%BD%BF%E7%94%A8%E4%BE%8B.html" ><span class="section-number">2. </span>使用例</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.3. </span>水道ﾒｰﾀ監視</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, 矢野　泰弘.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
