@@ -22,7 +22,7 @@ copyright = '2021, 矢野\u3000泰弘'
 author = '矢野\u3000泰弘'
 
 # The full version, including alpha/beta/rc tags
-release = '1.00 2021/06/30'
+release = '1.10 2021/08/14'
 
 
 # -- General configuration ---------------------------------------------------

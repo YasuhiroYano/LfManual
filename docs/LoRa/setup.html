@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>3. 使用方法 &#8212; LoRaFactory 1.00 2021/06/30 ドキュメント</title>
+    <title>3. 使用方法 &#8212; LoRaFactory 1.10 2021/08/14 ドキュメント</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -55,7 +55,7 @@
         <li class="right" >
           <a href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html" title="2.3. 水道ﾒｰﾀ監視"
              accesskey="P">前へ</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+    <li><a href="../index.html">LoRaFactory 1.10 2021/08/14 ドキュメント</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>使用方法</a></li> 
       </ul>
@@ -117,6 +117,179 @@
 </section>
 <section id="id4">
 <h2><span class="section-number">3.2. </span>ソフトウエア<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<section id="id5">
+<h3><span class="section-number">3.2.1. </span>準備<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>プログラムの作成には、開発環境(Arduino IDE)を使用します。
+詳しい説明は致しませんが、たくさん参考になるサイトがあります。
+Arduino IDEは、ここからダウンロードしてください。　<a class="reference external" href="https://www.arduino.cc/en/software">https://www.arduino.cc/en/software</a></p>
+<p>ライブラリは、GITにあります。　ダウンロードして、インストールしてください。
+<a class="reference external" href="https://github.com/YasuhiroYano/LoRaFactory">https://github.com/YasuhiroYano/LoRaFactory</a></p>
+<dl>
+<dt>サンプルプログラムも、同じところに保存されています。</dt><dd><div class="line-block">
+<div class="line">BoarTrupは、電池運用、LINEメッセージの送信を行っているイノシシ罠のプログラムです。</div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3><span class="section-number">3.2.2. </span>子機プログラミング<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>ライブラリヘッダ</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;LoRafactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avr/sleep.h&gt;</span><span class="c1">                  // スリープライブラリ</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avr/wdt.h&gt;</span><span class="c1">                    // ウォッチドッグタイマー ライブラリ</span><span class="cp"></span>
+</pre></div>
+</div>
+<p>sleep.h,wdt.hは、バッテリ運用時に必要となります。</p>
+<ul class="simple">
+<li><p>EASEL ES920LRの使用宣言　(LoRaFactoryｸﾗｽの実体化)</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">LoRafactory</span> <span class="nf">Lf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">MyID</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">//End device</span>
+<span class="c1">//(cordinator,panid,ownid,receiveNum,transmitNum);</span>
+</pre></div>
+</div>
+<dl>
+<dt>設定内容</dt><dd><div class="line-block">
+<div class="line">cordinator　:子機の場合　0</div>
+<div class="line">panid: 0001 .. 0xfffe 同じIDの機器間でなければ通信できません。</div>
+<div class="line">ownid: 0001 .. 0xfffe 自局のidです。</div>
+<div class="line">receiveNum,transmitNum: 1..10 送受信のﾃﾞｰﾀ点数です。 この点数内であれば
+簡単にデータの送受信を行うことができます。　後で説明しますが、50byte以内の文字列を送ることもできます。</div>
+</div>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>setup()内で、接続処理を行います。</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Lf</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DestId</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1">////bw=3(62.5k) sf=10</span>
+</pre></div>
+</div>
+<dl>
+<dt>設定内容</dt><dd><div class="line-block">
+<div class="line">DestId：接続先のアドレスで、子機の場合は親機のアドレス０、もしくは中継器のアドレスを設定します。</div>
+</div>
+</dd>
+<dt>　　親機での使用の場合は、複数の子機に対して通信を行うことがあるので、この時のDestIdは仮のものでよいです。</dt><dd><div class="line-block">
+<div class="line">bw,sf:帯域幅(3..6)は小さいほど、拡散率(7..12)は大きいほど通信距離が延びますが、通信時間が長ります。</div>
+<div class="line">詳細については、ES920LRのソフトウエア仕様書を参照ください。</div>
+</div>
+<p><a class="reference external" href="https://easel5.com/documents/files/ES920LR%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E4%BB%95%E6%A7%98%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E8%AA%AC%E6%98%8E%E6%9B%B8_v121.pdf">https://easel5.com/documents/files/ES920LR%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E4%BB%95%E6%A7%98%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E8%AA%AC%E6%98%8E%E6%9B%B8_v121.pdf</a></p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>loop()内でﾃﾞｰﾀの設定を行います。</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Lf</span><span class="p">.</span><span class="n">command</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
+<span class="n">Lf</span><span class="p">.</span><span class="n">set_data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">BattVolt</span><span class="p">);</span>
+<span class="n">Lf</span><span class="p">.</span><span class="n">set_data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Temp</span><span class="p">);</span>
+<span class="n">Lf</span><span class="p">.</span><span class="n">set_data</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">Flow</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl>
+<dt>設定内容</dt><dd><div class="line-block">
+<div class="line">Lf.command:ﾃﾞｰﾀの識別等に使える1byteの文字を設定</div>
+<div class="line">Lf.set_data:送信したいデータを宣言LoRafactory Lf(...)で指定した点数まで設定し、送信出来ます。</div>
+<div class="line">データの形式は複数用意しています。</div>
+</div>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>データ送信</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Lf</span><span class="p">.</span><span class="n">transmit</span><span class="p">();</span>
+<span class="n">delay</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>送信が成功すると、Trueが返されます。　　delay()は通信間隔を空けるために必須です。
+スリープさせて通信間隔を取る場合は後のバッテリ運用で説明します。</p>
+<ul class="simple">
+<li><p>データ受信</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">Lf</span><span class="p">.</span><span class="n">recieve</span><span class="p">())</span> <span class="p">{</span><span class="c1">//データを受信</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="o">=</span><span class="n">Lf</span><span class="p">.</span><span class="n">recid</span><span class="p">();</span>  <span class="c1">//送信元Id</span>
+    <span class="kt">int</span> <span class="n">rssi</span><span class="o">=</span><span class="n">Lf</span><span class="p">.</span><span class="n">rssi</span><span class="p">();</span> <span class="c1">//受信強度</span>
+    <span class="kt">char</span> <span class="n">cmd</span><span class="o">=</span><span class="n">Lf</span><span class="p">.</span><span class="n">command</span><span class="p">();</span>  <span class="c1">//1文字の識別文字</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>   <span class="c1">//n番目のﾃﾞｰﾀ</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">3.2.3. </span>親機プログラミング<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>親機、または中継器として使用する場合の相違点</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">LoRafactory</span> <span class="nf">Lf</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">//End device</span>
+<span class="c1">//(cordinator,panid,ownid,receiveNum,transmitNum);</span>
+</pre></div>
+</div>
+<dl>
+<dt>設定内容</dt><dd><div class="line-block">
+<div class="line">cordinator　:親機（中央局）１</div>
+<div class="line">panid: 0001 .. 0xfffe 同じIDの機器間でなければ、通信できません。</div>
+<div class="line">ownid: 0001 .. 0xfffe 自局のidです。 一般的に親機は0とします。</div>
+<div class="line">receiveNum,transmitNum: 1..10 送受信のﾃﾞｰﾀ点数です。</div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3><span class="section-number">3.2.4. </span>電池運用<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>子機の場合は、待機時にスリープさせることによって省電力化し、電池で運用できます。
+親機の場合は、常に子機からの通信を待ち受ける必要があるので、スリープによる省電力化は出来ません。</p>
+<ul class="simple">
+<li><p>ワッチドックタイマによるスリープからの復帰設定</p></li>
+</ul>
+<p>sleep()でスリープ状態になった後、復帰はワッチドックタイマ(WDT)によって行います。
+WDTは、メインクロックを停止しても動き続ける128KHzのクロックで動作します。
+パワーダウンモードの消費電流は、電源電圧4.5Vにおいて27μA以下になります。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">setWdt</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MCUSR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">WDTCSR</span> <span class="o">|=</span> <span class="mb">0b00011000</span><span class="p">;</span> <span class="c1">//WDCE WDE set</span>
+    <span class="n">WDTCSR</span> <span class="o">=</span>  <span class="mb">0b01000000</span> <span class="o">|</span> <span class="mb">0b100001</span><span class="p">;</span><span class="c1">//WDIE set  |WDIF set  scale 8 seconds</span>
+    <span class="n">set_sleep_mode</span><span class="p">(</span><span class="n">SLEEP_MODE_PWR_DOWN</span><span class="p">);</span>  <span class="c1">// パワーダウンモード指定</span>
+    <span class="n">sleep_enable</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">ISR</span><span class="p">(</span><span class="n">WDT_vect</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">// WDTがタイムアップした時に実行される処理</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>loop() の最後で、スリープモードに移行します</p></li>
+</ul>
+<p>WDTによる復帰時間は、最大8秒ですので処理間隔が長い場合には、復帰回数をカウントして必要な時間間隔
+での処理を行います。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">++</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="n">LoopTime</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// LoopTime*8秒周期で行う処理</span>
+        <span class="n">ADCSRA</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">ADEN</span><span class="p">);</span> <span class="c1">// ADCを許可</span>
+        <span class="c1">// ADを伴う処理</span>
+        <span class="n">ADCSRA</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">ADEN</span><span class="p">);</span> <span class="c1">// ADCを停止（消費電流 147→27μA）</span>
+    <span class="p">}</span>
+    <span class="n">sleep_mode</span><span class="p">();</span><span class="c1">//８秒間スリープする</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ADCを禁止しないと、3V時200μA、4.5V時270μAが、消費されます。
+そのほか入出力ポートは、スリープ前の状態を保持しますので、スリープさせる前に
+ポートに電流が流れない状態にする必要があります。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>ﾌﾟﾛｸﾞﾗﾑが完成したのちに実際にスリープ時の電流を評価すること。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>電池運用でBODをOFFすればさらに待機電流を20μA減らすことができます。
+そのためにはスリープモードの移行をアセンブラで記述する必要があります。
+休止間にBODをOFFにするにはBODSﾋﾞｯﾄが’1’を書かれなければなりません。BODSﾋﾞｯﾄの書き込みはMCUCRのBOD休止許可
+(BODSE)ﾋﾞｯﾄの許可と時間制限手順によって制御されます。関連する休止形態でBODを禁止するには最初にBODSとBODSEの
+両方が’1’を書かれなければなりません。その後4ｸﾛｯｸ周期内にBODSが’1’を、BODSEが’0’を書かれなければなりません。
+BODSﾋﾞｯﾄはそれが設定された後の3ｸﾛｯｸ周期間活性(有効)です。SLEEP命令は実際の休止形態に対してBODをOFFに
+するために、BODSが活性(有効)の間に実行されなければなりません。BODSﾋﾞｯﾄは3ｸﾛｯｸ周期後、自動的に解除(0)されます。</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -134,7 +307,13 @@
 <li><a class="reference internal" href="#id3">3.1.1. <strong>仕様</strong></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">3.2. ソフトウエア</a></li>
+<li><a class="reference internal" href="#id4">3.2. ソフトウエア</a><ul>
+<li><a class="reference internal" href="#id5">3.2.1. 準備</a></li>
+<li><a class="reference internal" href="#id6">3.2.2. 子機プログラミング</a></li>
+<li><a class="reference internal" href="#id7">3.2.3. 親機プログラミング</a></li>
+<li><a class="reference internal" href="#id8">3.2.4. 電池運用</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -202,7 +381,7 @@
         <li class="right" >
           <a href="%E6%B0%B4%E9%81%93%EF%BE%92%EF%BD%B0%EF%BE%80%E7%9B%A3%E8%A6%96.html" title="2.3. 水道ﾒｰﾀ監視"
              >前へ</a> &nbsp; &nbsp;</li>
-    <li><a href="../index.html">LoRaFactory 1.00 2021/06/30 ドキュメント</a> &#187;</li>
+    <li><a href="../index.html">LoRaFactory 1.10 2021/08/14 ドキュメント</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>使用方法</a></li> 
       </ul>
