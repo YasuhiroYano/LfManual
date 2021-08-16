@@ -36,6 +36,13 @@ https://github.com/YasuhiroYano/LoRaFactory
 サンプルプログラムも、同じところに保存されています。
  | BoarTrupは、電池運用、LINEメッセージの送信を行っているイノシシ罠のプログラムです。
 
+..  note::
+    ﾌﾟﾛｸﾞﾗﾑ時のﾎﾞｰﾄﾞ設定は  AtMega328 3.3V　8MHzを選択します。
+
+.. figure:: ../img/selectBord.jpg
+   :scale: 100
+   :align: Right 
+
 子機プログラミング
 +++++++++++++++++++++
 
