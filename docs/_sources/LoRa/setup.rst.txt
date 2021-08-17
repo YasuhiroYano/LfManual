@@ -33,14 +33,23 @@ Arduino IDEは、ここからダウンロードしてください。　https://w
 ライブラリは、GITにあります。　ダウンロードして、インストールしてください。
 https://github.com/YasuhiroYano/LoRaFactory
 
-サンプルプログラムも、同じところに保存されています。
- | BoarTrupは、電池運用、LINEメッセージの送信を行っているイノシシ罠のプログラムです。
+- GITにおいてZIPでダウンロードを選択します。
+
+.. figure:: ../img/selectZipLib.jpg
+   :scale: 70
+   :align: Right 
+
+- Arduino IDEから「スケッチ」「ライブラリをインクルード」「.ZIP形式のライブラリをインストール」を選択して、ダウンロードしたZIPを選択します。
+
+
+
+- サンプルプログラムも、同じところに保存されています。 例えばBoarTrupは、電池運用、LINEメッセージの送信を行っているイノシシ罠のプログラムです。
 
 ..  note::
     ﾌﾟﾛｸﾞﾗﾑ時のﾎﾞｰﾄﾞ設定は  AtMega328 3.3V　8MHzを選択します。
 
 .. figure:: ../img/selectBord.jpg
-   :scale: 100
+   :scale: 70
    :align: Right 
 
 子機プログラミング
